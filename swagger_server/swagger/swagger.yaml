@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: ethereum
+  version: "1.0"
+servers:
+- url: http://localhost:3000
+paths:
+  /gpu:
+    get:
+      tags: []
+      summary: Get available GPUs
+      description: Get list of matching GPUs based on query parameters
+      operationId: get_gpu
+      parameters:
+      - name: make
+        in: query
+        description: Make
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: model
+        in: query
+        description: Model
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: hash
+        in: query
+        description: Hash rate
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: power
+        in: query
+        description: Power consumption
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GPU'
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+    post:
+      tags: []
+      summary: Add new GPU
+      operationId: post_gpu
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GPU'
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GPU'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /eth-price:
+    get:
+      tags: []
+      summary: Your GET endpoint
+      operationId: get_eth_price
+      parameters:
+      - name: price
+        in: query
+        description: current Ethereum price
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Price'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+components:
+  schemas:
+    GPU:
+      title: GPU
+      type: object
+      properties:
+        name:
+          type: string
+        power:
+          type: number
+        hash:
+          type: number
+      example:
+        name: name
+        power: 0.80082819046101150206595775671303272247314453125
+        hash: 6.02745618307040320615897144307382404804229736328125
+    Price:
+      title: Price
+      type: object
+      properties:
+        price:
+          type: number
+      example:
+        price: 0.80082819046101150206595775671303272247314453125
+
