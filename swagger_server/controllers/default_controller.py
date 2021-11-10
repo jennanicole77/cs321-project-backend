@@ -35,3 +35,63 @@ def get_user(user=None):
         "All_Gpu_Dict" : gpus
     }
     return  json.dumps(response)
+
+def get_days():  # noqa: E501
+    """Your GET endpoint
+
+     # noqa: E501
+
+
+    :rtype: Object
+    """
+    return 'do some magic!'
+
+def get_hashrate():  # noqa: E501
+    """Your GET endpoint
+
+     # noqa: E501
+
+
+    :rtype: Object
+    """
+    return 'do some magic!'
+
+def get_mine():  
+    return json.dumps(newUser.need_to_mine())
+
+def get_profit():  # noqa: E501
+    """Your GET endpoint
+
+     # noqa: E501
+
+
+    :rtype: Object
+    """
+    return 'do some magic!'
+
+def get_revenue():  # noqa: E501
+    """Your GET endpoint
+
+     # noqa: E501
+
+
+    :rtype: Object
+    """
+    return 'do some magic!'
+
+def put_amount_mined(mined=input):  
+    newUser.set_ethereum_mined(mined)
+    return json.dumps(newUser.get_ethereum_mined())
+
+def put_power(power=input): 
+    newUser.set_power_rate(power)
+    return json.dumps(newUser.get_power_rate())
+
+def put_rig(rig=input): 
+    newUser.set_total_cost(rig)
+    return json.dumps(newUser.get_total_cost())
+
+def put_tax(tax=input): 
+    newUser.set_tax_rate(tax)
+    return json.dumps(newUser.get_tax_rate())
+

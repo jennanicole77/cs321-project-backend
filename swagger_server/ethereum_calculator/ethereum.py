@@ -267,23 +267,22 @@ def load_gpus(all_gpus):
 # Page Loads 
 # GPUs are loaded into all_gpu dict
 
-all_gpus = dict() #A Global variable that stores all the possible GPU Types inside a map
-load_gpus(all_gpus)
+# all_gpus = dict() #A Global variable that stores all the possible GPU Types inside a map
+# load_gpus(all_gpus)
 
-# A new user instance is created
+# # A new user instance is created
 
-caio = User(all_gpus)
-gpus = []   
-for gpu in caio.All_Gpu_Dict:
-    gpus.append(gpu)
-print("printing gpus after loop", gpus)
+# caio = User(all_gpus)
+# gpus = []   
+# for gpu in caio.All_Gpu_Dict:
+#     gpus.append(gpu)
 
-caio.set_ethereum_mined(1000)
-caio.set_total_cost(5000)
-caio.set_tax_rate(0.1)
-caio.set_power_rate(0.12)
+# caio.set_ethereum_mined(1000)
+# caio.set_total_cost(5000)
+# caio.set_tax_rate(0.1)
+# caio.set_power_rate(0.12)
 
-#print(caio)
+# #print(caio)
 
 # caio.add_gpus("3070Ti", 4)
 # caio.add_gpus("3070Ti", 2) #This will give exacly 100Mh/s good for testing

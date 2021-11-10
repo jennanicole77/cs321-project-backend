@@ -71,6 +71,151 @@ paths:
               schema:
                 $ref: '#/components/schemas/Current-User'
       x-openapi-router-controller: swagger_server.controllers.default_controller
+  /amount-mined:
+    put:
+      operationId: put_amount_mined
+      parameters:
+      - name: mined
+        in: query
+        description: amount mined so far
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /rig:
+    put:
+      operationId: put_rig
+      parameters:
+      - name: rig
+        in: query
+        description: price of rig
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /tax:
+    put:
+      operationId: put_tax
+      parameters:
+      - name: tax
+        in: query
+        description: tax rate
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /power:
+    put:
+      operationId: put_power
+      parameters:
+      - name: power
+        in: query
+        description: power rate
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /mine:
+    get:
+      tags: []
+      summary: Your GET endpoint
+      operationId: get_mine
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /hashrate:
+    get:
+      tags: []
+      summary: Your GET endpoint
+      operationId: get_hashrate
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /days:
+    get:
+      tags: []
+      summary: Your GET endpoint
+      operationId: get_days
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /revenue:
+    get:
+      tags: []
+      summary: Your GET endpoint
+      operationId: get_revenue
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /profit:
+    get:
+      tags: []
+      summary: Your GET endpoint
+      operationId: get_profit
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
 components:
   schemas:
     Price:
@@ -90,7 +235,7 @@ components:
       example:
         id: 0.80082819046101150206595775671303272247314453125
     Current-User:
-      title: Current-User
+      title: User
       type: object
       properties:
         user:
