@@ -5,6 +5,7 @@ from __future__ import absolute_import
 from flask import json
 from six import BytesIO
 
+from swagger_server.models.current_user import CurrentUser 
 from swagger_server.models.price import Price  # noqa: E501
 from swagger_server.models.profitability import Profitability  # noqa: E501
 from swagger_server.test import BaseTestCase
@@ -38,7 +39,19 @@ class TestDefaultController(BaseTestCase):
             query_string=query_string)
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
+                       
+    def test_get_user(self):
+        """Test case for get_user
 
+        Your GET endpoint
+        """
+        query_string = [('user', 'user_example')]
+        response = self.client.open(
+            '/user',
+            method='GET',
+            query_string=query_string)
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
 
 if __name__ == '__main__':
     import unittest

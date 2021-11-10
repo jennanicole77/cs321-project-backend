@@ -49,18 +49,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/Profitability'
       x-openapi-router-controller: swagger_server.controllers.default_controller
+  /user:
+    get:
+      tags: []
+      summary: Your GET endpoint
+      operationId: get_user
+      parameters:
+      - name: user
+        in: query
+        description: current user
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Current-User'
+      x-openapi-router-controller: swagger_server.controllers.default_controller
 components:
   schemas:
-    GPU:
-      title: GPU
-      type: object
-      properties:
-        name:
-          type: string
-        power:
-          type: number
-        hash:
-          type: number
     Price:
       title: Price
       type: object
@@ -77,4 +89,12 @@ components:
           type: number
       example:
         id: 0.80082819046101150206595775671303272247314453125
+    Current-User:
+      title: Current-User
+      type: object
+      properties:
+        user:
+          type: object
+      example:
+        user: {}
 
