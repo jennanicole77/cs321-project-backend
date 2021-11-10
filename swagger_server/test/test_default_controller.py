@@ -108,6 +108,20 @@ class TestDefaultController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
+    def test_put_add_gpu(self):
+        """Test case for put_add_gpu
+
+        
+        """
+        query_string = [('gpu_name', 'gpu_name_example'),
+                        ('gpu_quantity', 'gpu_quantity_example')]
+        response = self.client.open(
+            '/add-gpu',
+            method='PUT',
+            query_string=query_string)
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
     def test_put_amount_mined(self):
         """Test case for put_amount_mined
 

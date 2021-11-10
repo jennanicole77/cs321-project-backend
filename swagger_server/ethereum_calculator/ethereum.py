@@ -238,9 +238,9 @@ class User:
         driver.get(url)
         
         #Finds the required value on the website and pulls the information 
-        # location = "/html/body/div[7]/div/div[9]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div[1]/div/div[1]/div[1]/div[2]/span[1]"
-        location = "[data-precision]"
-        price_string = driver.find_element_by_css_selector(location).text
+        location = "/html/body/div[7]/div/div[9]/div[1]/div/div[2]/div[2]/div/div/div[1]/div/div/div/div/div[1]/div/div[1]/div[1]/div[2]/span[1]"
+        #ocation = "[data-precision]"
+        price_string = driver.find_element_by_xpath(location).text
         price_string = price_string.replace(',', '')  
         
         float_price = float(price_string)
@@ -267,67 +267,63 @@ def load_gpus(all_gpus):
 # Page Loads 
 # GPUs are loaded into all_gpu dict
 
-# all_gpus = dict() #A Global variable that stores all the possible GPU Types inside a map
-# load_gpus(all_gpus)
+all_gpus = dict() #A Global variable that stores all the possible GPU Types inside a map
+load_gpus(all_gpus)
 
-# # A new user instance is created
+# A new user instance is created
 
-# caio = User(all_gpus)
-# gpus = []   
-# for gpu in caio.All_Gpu_Dict:
-#     gpus.append(gpu)
+caio = User(all_gpus)
 
-# caio.set_ethereum_mined(1000)
-# caio.set_total_cost(5000)
-# caio.set_tax_rate(0.1)
-# caio.set_power_rate(0.12)
+
+caio.set_ethereum_mined(1000)
+caio.set_total_cost(5000)
+caio.set_tax_rate(0.1)
+caio.set_power_rate(0.12)
 
 # #print(caio)
 
-# caio.add_gpus("3070Ti", 4)
-# caio.add_gpus("3070Ti", 2) #This will give exacly 100Mh/s good for testing
-# caio.remove_gpus("3070Ti", 4)
+caio.add_gpus("3070Ti", 4)
+caio.add_gpus("3070Ti", 2) #This will give exacly 100Mh/s good for testing
+caio.remove_gpus("3070Ti", 4)
 # print(caio)
 
 
-# print(f"\n\nYou currently own {caio.get_ethereum_mined()} ETH")
-# print(f"Your total system price was {caio.get_total_cost()}$")
-# print(f"You need to mine: {caio.need_to_mine()}$ to reach ROI")
-# print(f"Your current hashrate is {caio.get_total_hashrate()} Mh/s") 
-# print(f"Revenue per day is estimated at {caio.daily_revenue()}$")
-# print(f"Profit per day is estimated at {caio.daily_profit()}$")  
-# print(f"At current prices, your rig will be payed in {caio.calculate_remaining_days_for_ROI()} days on TODO\n\n")  
+print(f"\n\nYou currently own {caio.get_ethereum_mined()} ETH")
+print(f"Your total system price was {caio.get_total_cost()}$")
+print(f"You need to mine: {caio.need_to_mine()}$ to reach ROI")
+print(f"Your current hashrate is {caio.get_total_hashrate()} Mh/s") 
+print(f"Revenue per day is estimated at {caio.daily_revenue()}$")
+print(f"Profit per day is estimated at {caio.daily_profit()}$")  
+print(f"At current prices, your rig will be payed in {caio.calculate_remaining_days_for_ROI()} days on TODO\n\n")  
+
+#this is how to display after adding gpus
+for keys in caio.user_gpu:
+    print(caio.user_gpu[keys])
 
 
 
 
 
+# print(grab_profitability())
+# print(grab_eth_price())
+
+# user_gpu = dict()
 
 
-#print(grab_profitability())
-#print(grab_eth_price())
-
-#user_gpu = dict()
+# remove_gpus(user_gpu, all_gpus, "3080")
+# remove_gpus(user_gpu, all_gpus, "1080")
 
 
-#remove_gpus(user_gpu, all_gpus, "3080")
-#remove_gpus(user_gpu, all_gpus, "1080")
+# user = load("saved_session.json")
 
+# print("Power usage: " + str(user.power_usage()))
 
-#user = load("saved_session.json")
+# print("Daily revenue: " + str(user.daily_revenue()))
 
-#print("Power usage: " + str(user.power_usage()))
+# print("Daily earnings: " + str(user.daily_profit()))
 
-#print("Daily revenue: " + str(user.daily_revenue()))
+# print("ROI: " + str(user.calculateROI()))
 
-#print("Daily earnings: " + str(user.daily_profit()))
+# print(user)
 
-#print("ROI: " + str(user.calculateROI()))
-
-#print(user)
-#
-#user.save()
-
-#for keys in user.user_gpu:
-    #print(user.user_gpu[keys])
-
+# user.save()

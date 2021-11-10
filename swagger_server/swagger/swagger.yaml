@@ -216,6 +216,30 @@ paths:
               schema:
                 x-content-type: application/json
       x-openapi-router-controller: swagger_server.controllers.default_controller
+  /add-gpu:
+    put:
+      operationId: put_add_gpu
+      parameters:
+      - name: gpuName
+        in: query
+        description: name of gpu to add
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      - name: gpuQuantity
+        in: query
+        description: quantity to add
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+      x-openapi-router-controller: swagger_server.controllers.default_controller
 components:
   schemas:
     Price:
