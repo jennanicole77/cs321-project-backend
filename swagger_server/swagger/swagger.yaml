@@ -220,17 +220,29 @@ paths:
     put:
       operationId: put_add_gpu
       parameters:
-      - name: gpuName
+      - name: quantity
         in: query
-        description: name of gpu to add
+        description: quantity of gpu to add
         required: false
         style: form
         explode: true
         schema:
-          type: string
-      - name: gpuQuantity
+          type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /gpu-update:
+    put:
+      operationId: put_gpu_update
+      parameters:
+      - name: name
         in: query
-        description: quantity to add
+        description: name of gpu to update
         required: false
         style: form
         explode: true
@@ -239,6 +251,51 @@ paths:
       responses:
         "200":
           description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /remove-gpu:
+    put:
+      operationId: put_remove_gpu
+      parameters:
+      - name: quantity
+        in: query
+        description: to be removed
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: number
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
+  /save:
+    get:
+      tags: []
+      summary: Your GET endpoint
+      operationId: get_save
+      parameters:
+      - name: Object
+        in: query
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
       x-openapi-router-controller: swagger_server.controllers.default_controller
 components:
   schemas:

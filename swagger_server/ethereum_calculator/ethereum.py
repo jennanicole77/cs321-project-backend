@@ -56,6 +56,9 @@ class User:
     # Gets the total amount of ethereum mined
     def get_ethereum_mined(self):
         return self.ethereum
+
+    def get_all_gpu_dict(self):
+        return self.All_Gpu_Dict
     
     # Sets the total  cost of the system, default is 0
     def set_total_cost(self, total_cost):
@@ -76,7 +79,8 @@ class User:
         return self.tax_rate
     
      # Sets the total  cost of the system, default is 0
-    
+    def get_user_gpu(self):
+        return self.user_gpu
     # Sets the power rate
     def set_power_rate(self, power_rate):
         self.power_rate = power_rate
@@ -141,6 +145,7 @@ class User:
 
         with open("sessions\saved_session.json", "w") as f:
             json.dump(data, f)
+        return data
     
     # Loads a saved user session
     def load(self, file):
@@ -160,6 +165,7 @@ class User:
     
     # This function adds a gpu to the user dictionary
     def add_gpus(self, name, quantity):
+        
         if quantity > 0:
             self.user_gpu[self.All_Gpu_Dict[name].name] = self.All_Gpu_Dict[name]
             self.user_gpu[name].quantity = self.user_gpu[name].quantity + quantity
@@ -171,6 +177,7 @@ class User:
         if name in self.user_gpu.keys():
             self.user_gpu[name].quantity = self.user_gpu[name].quantity - quantity
             if self.user_gpu[name].quantity <= 0:
+                self.user_gpu[name].quantity = 0
                 self.user_gpu.pop(name)
                 
 
@@ -285,6 +292,7 @@ caio.set_power_rate(0.12)
 caio.add_gpus("3070Ti", 4)
 caio.add_gpus("3070Ti", 2) #This will give exacly 100Mh/s good for testing
 caio.remove_gpus("3070Ti", 4)
+caio.add_gpus("3080Ti", 5)
 # print(caio)
 
 
@@ -299,6 +307,19 @@ print(f"At current prices, your rig will be payed in {caio.calculate_remaining_d
 #this is how to display after adding gpus
 for keys in caio.user_gpu:
     print(caio.user_gpu[keys])
+
+gpus = []
+user_gpus = caio.user_gpu
+for keys in user_gpus:
+    currName = user_gpus[keys].name
+    currHash = user_gpus[keys].hash
+    currPower = user_gpus[keys].power
+    currQuantity = user_gpus[keys].quantity
+    currGpuList = ["name: ", currName, "hash: ", currHash, 
+        "power: ", currPower, "quantity: ", currQuantity]
+    gpus.append(currGpuList)
+for gpu in gpus:
+    print(gpu)
 
 
 

@@ -13,6 +13,8 @@ all_gpus = dict()
 load_gpus(all_gpus)
 newUser = User(all_gpus)
 
+gpuToUpdate = ""
+
 def get_eth_price(price=None): 
     currPrice = Price(float(User.grab_eth_price(newUser)))
     return currPrice
@@ -22,6 +24,13 @@ def get_profitability(profitability=None):
     return currProfitability
 
 def get_user(user=None):  
+    global gpuToUpdate
+    gpuToUpdate = ""
+    global newUser
+    all_gpus = dict()
+    load_gpus(all_gpus)
+    newUser = User(all_gpus)
+    User.user_constructor(newUser, 0, 0, dict(), 0, 0)
     gpus = []   
     for gpu in newUser.All_Gpu_Dict:
         gpus.append(gpu)
@@ -51,6 +60,27 @@ def get_profit():
 def get_revenue():
     return json.dumps(User.daily_revenue(newUser))
 
+def get_save(object=None):  
+    gpus = [] 
+    gpus_dict = User.get_user_gpu(newUser)  
+    for keys in gpus_dict:
+        currName = gpus_dict[keys].name
+        currHash = gpus_dict[keys].hash
+        currPower = gpus_dict[keys].power
+        currQuantity = gpus_dict[keys].quantity
+        currGpuList = ["name: ", currName, "hash: ", currHash, 
+            "power: ", currPower, "quantity: ", currQuantity]
+        gpus.append(currGpuList)
+
+    response = {
+        "ethereum" : User.get_ethereum_mined(newUser),
+        "power_rate" : User.get_power_rate(newUser),
+        "tax_rate" : User.get_tax_rate(newUser),
+        "total_cost" : User.get_total_cost(newUser)  ,
+        "user_gpu" : gpus
+    }
+    return json.dumps(response)
+
 def put_amount_mined(mined=input):  
     User.set_ethereum_mined(newUser, mined)
     return json.dumps(User.get_ethereum_mined(newUser))
@@ -67,6 +97,36 @@ def put_tax(tax=input):
     User.set_tax_rate(newUser, tax)
     return json.dumps(User.get_tax_rate(newUser))
 
-def put_add_gpu(gpu_name=input, gpu_quantity=input):
-    User.add_gpus(newUser, gpu_name, gpu_quantity)
+def put_gpu_update(name=input):
+    global gpuToUpdate
+    gpuToUpdate = name
+    return json.dumps(gpuToUpdate)
+
+def put_add_gpu(quantity=input):
+    User.add_gpus(newUser, gpuToUpdate, quantity)
+    gpus = []
+    user_gpus = User.get_user_gpu(newUser)
+    for keys in user_gpus:
+        currName = user_gpus[keys].name
+        currHash = user_gpus[keys].hash
+        currPower = user_gpus[keys].power
+        currQuantity = user_gpus[keys].quantity
+        currGpuList = ["name: ", currName, "hash: ", currHash, 
+            "power: ", currPower, "quantity: ", currQuantity]
+        gpus.append(currGpuList)
+    return json.dumps(gpus)
+
+def put_remove_gpu(quantity=input):
+    User.remove_gpus(newUser, gpuToUpdate, quantity)
+    gpus = []
+    user_gpus = User.get_user_gpu(newUser)
+    for keys in user_gpus:
+        currName = user_gpus[keys].name
+        currHash = user_gpus[keys].hash
+        currPower = user_gpus[keys].power
+        currQuantity = user_gpus[keys].quantity
+        currGpuList = ["name: ", currName, "hash: ", currHash, 
+            "power: ", currPower, "quantity: ", currQuantity]
+        gpus.append(currGpuList)
+    return json.dumps(gpus)
 

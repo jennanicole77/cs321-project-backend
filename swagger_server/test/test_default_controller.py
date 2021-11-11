@@ -84,6 +84,19 @@ class TestDefaultController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
+    def test_get_save(self):
+        """Test case for get_save
+
+        Your GET endpoint
+        """
+        query_string = [('object', 'object_example')]
+        response = self.client.open(
+            '/save',
+            method='GET',
+            query_string=query_string)
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
     def test_get_revenue(self):
         """Test case for get_revenue
 
@@ -113,8 +126,7 @@ class TestDefaultController(BaseTestCase):
 
         
         """
-        query_string = [('gpu_name', 'gpu_name_example'),
-                        ('gpu_quantity', 'gpu_quantity_example')]
+        query_string = [('quantity', 1.2)]
         response = self.client.open(
             '/add-gpu',
             method='PUT',
@@ -135,6 +147,19 @@ class TestDefaultController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
+    def test_put_gpu_update(self):
+        """Test case for put_gpu_update
+
+        
+        """
+        query_string = [('name', 'name_example')]
+        response = self.client.open(
+            '/gpu-update',
+            method='PUT',
+            query_string=query_string)
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
     def test_put_power(self):
         """Test case for put_power
 
@@ -143,6 +168,19 @@ class TestDefaultController(BaseTestCase):
         query_string = [('power', 1.2)]
         response = self.client.open(
             '/power',
+            method='PUT',
+            query_string=query_string)
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+    def test_put_remove_gpu(self):
+        """Test case for put_remove_gpu
+
+        
+        """
+        query_string = [('quantity', 1.2)]
+        response = self.client.open(
+            '/remove-gpu',
             method='PUT',
             query_string=query_string)
         self.assert200(response,
