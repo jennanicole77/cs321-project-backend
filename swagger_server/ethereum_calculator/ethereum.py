@@ -94,6 +94,7 @@ class User:
     def efficient_get_eth(self):
         if self.eth_price == 0:
             self.eth_price = self.grab_eth_price()
+            time.sleep(3)
         return self.eth_price
 
     def efficient_get_mhs(self):
@@ -192,15 +193,16 @@ class User:
         if daily_profit == 0:
             return "∞"
         ROI = self.need_to_mine()/daily_profit
-        math.ceil(ROI)
+        day = math.ceil(ROI)
+    
 
         start_date = datetime.datetime.now()
         start_date_string = start_date.strftime("%m/%d/%y")
         date_1 = datetime.datetime.strptime(start_date_string, "%m/%d/%y")
-        end_date = date_1 + datetime.timedelta(days=10)
+        end_date = date_1 + datetime.timedelta(days=day)
 
 
-        return str(math.ceil(ROI)) + " days on " + end_date.strftime("%B %d, %Y")
+        return str(day) + " days on " + end_date.strftime("%B %d, %Y")
 
         # This function uses selenium to grab the profitablility per 100Mhs of ethereum
     
