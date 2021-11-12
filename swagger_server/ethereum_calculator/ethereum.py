@@ -4,6 +4,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import warnings
+import datetime
 import time
 import json
 import math
@@ -12,8 +13,8 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Selenium Driver is different for the OS you are using, choose one of the following
 #PATH = "dependencies/windowschromedriver"
-# PATH = "dependencies/m1chromedriver"
-PATH = "dependencies/macchromedriver"
+PATH = "dependencies/m1chromedriver"
+#PATH = "dependencies/macchromedriver"
 
 # A class that defines the attributes of a GPU
 class GPU:
@@ -51,7 +52,7 @@ class User:
 
     # Sets the total ammount of ethereum mined, default is 0
     def set_ethereum_mined(self, ethereum):
-        self.ethereum = ethereum
+        self.ethereum = float(ethereum)
     
     # Gets the total amount of ethereum mined
     def get_ethereum_mined(self):
@@ -62,7 +63,7 @@ class User:
     
     # Sets the total  cost of the system, default is 0
     def set_total_cost(self, total_cost):
-        self.total_cost = total_cost
+        self.total_cost = float(total_cost)
     
     # Gets the total cost of the system
     def get_total_cost(self):
@@ -72,7 +73,7 @@ class User:
     
     # Sets the tax rate
     def set_tax_rate(self, tax_rate):
-        self.tax_rate = tax_rate
+        self.tax_rate = float(tax_rate)
     
     # Gets the total cost of the system
     def get_tax_rate(self):
@@ -83,7 +84,7 @@ class User:
         return self.user_gpu
     # Sets the power rate
     def set_power_rate(self, power_rate):
-        self.power_rate = power_rate
+        self.power_rate = float(power_rate)
     
     # Gets the total cost of the system
     def get_power_rate(self):
@@ -102,7 +103,10 @@ class User:
 
     # Returns the value needed to be mined in dollars.
     def need_to_mine(self):
-        ret = self.get_total_cost() - self.get_ethereum_mined() 
+        time.sleep(3)
+        tot = self.get_total_cost()
+        eth = self.get_ethereum_mined() * (1 - self.tax_rate)
+        ret =  tot - eth
         if ret < 0:
             ret = 0
         return ret
@@ -169,7 +173,7 @@ class User:
         if quantity > 0:
             self.user_gpu[self.All_Gpu_Dict[name].name] = self.All_Gpu_Dict[name]
             self.user_gpu[name].quantity = self.user_gpu[name].quantity + quantity
-            self.total_hashrate = self.total_hashrate + float(self.user_gpu[name].hash)
+            self.total_hashrate = self.total_hashrate + (float(self.user_gpu[name].hash) * quantity)
 
     # This function removes a gpu from the user dictionary
     def remove_gpus(self, name, quantity):
@@ -186,10 +190,17 @@ class User:
 
         daily_profit = self.daily_profit()
         if daily_profit == 0:
-            return 0
-        ROI = self.total_cost/daily_profit
+            return "∞"
+        ROI = self.need_to_mine()/daily_profit
         math.ceil(ROI)
-        return str(math.ceil(ROI)) + " days"
+
+        start_date = datetime.datetime.now()
+        start_date_string = start_date.strftime("%m/%d/%y")
+        date_1 = datetime.datetime.strptime(start_date_string, "%m/%d/%y")
+        end_date = date_1 + datetime.timedelta(days=10)
+
+
+        return str(math.ceil(ROI)) + " days on " + end_date.strftime("%B %d, %Y")
 
         # This function uses selenium to grab the profitablility per 100Mhs of ethereum
     
@@ -279,47 +290,47 @@ load_gpus(all_gpus)
 
 # A new user instance is created
 
-caio = User(all_gpus)
+#caio = User(all_gpus)
 
 
-caio.set_ethereum_mined(1000)
-caio.set_total_cost(5000)
-caio.set_tax_rate(0.1)
-caio.set_power_rate(0.12)
+#caio.set_ethereum_mined(1000)
+#caio.set_total_cost(5000)
+#caio.set_tax_rate(0.1)
+#caio.set_power_rate(0.12)
 
 # #print(caio)
 
-caio.add_gpus("3070Ti", 4)
-caio.add_gpus("3070Ti", 2) #This will give exacly 100Mh/s good for testing
-caio.remove_gpus("3070Ti", 4)
-caio.add_gpus("3080Ti", 5)
+#caio.add_gpus("3070Ti", 4)
+#caio.add_gpus("3070Ti", 2) #This will give exacly 100Mh/s good for testing
+#caio.remove_gpus("3070Ti", 4)
+#caio.add_gpus("3080Ti", 5)
 # print(caio)
 
 
-print(f"\n\nYou currently own {caio.get_ethereum_mined()} ETH")
-print(f"Your total system price was {caio.get_total_cost()}$")
-print(f"You need to mine: {caio.need_to_mine()}$ to reach ROI")
-print(f"Your current hashrate is {caio.get_total_hashrate()} Mh/s") 
-print(f"Revenue per day is estimated at {caio.daily_revenue()}$")
-print(f"Profit per day is estimated at {caio.daily_profit()}$")  
-print(f"At current prices, your rig will be payed in {caio.calculate_remaining_days_for_ROI()} days on TODO\n\n")  
+#print(f"\n\nYou currently own {caio.get_ethereum_mined()}")
+#print(f"Your total system price was {caio.get_total_cost()}$")
+#print(f"You need to mine: {caio.need_to_mine()}$ to reach ROI")
+#print(f"Your current hashrate is {caio.get_total_hashrate()} Mh/s") 
+#print(f"Revenue per day is estimated at {caio.daily_revenue()}$")
+#print(f"Profit per day is estimated at {caio.daily_profit()}$")  
+#print(f"At current prices, your rig will be payed in {caio.calculate_remaining_days_for_ROI()} days on TODO\n\n")  
 
 #this is how to display after adding gpus
-for keys in caio.user_gpu:
-    print(caio.user_gpu[keys])
+#for keys in caio.user_gpu:
+#    print(caio.user_gpu[keys])
 
-gpus = []
-user_gpus = caio.user_gpu
-for keys in user_gpus:
-    currName = user_gpus[keys].name
-    currHash = user_gpus[keys].hash
-    currPower = user_gpus[keys].power
-    currQuantity = user_gpus[keys].quantity
-    currGpuList = ["name: ", currName, "hash: ", currHash, 
-        "power: ", currPower, "quantity: ", currQuantity]
-    gpus.append(currGpuList)
-for gpu in gpus:
-    print(gpu)
+#gpus = []
+#user_gpus = caio.user_gpu
+#for keys in user_gpus:
+#    currName = user_gpus[keys].name
+#    currHash = user_gpus[keys].hash
+#    currPower = user_gpus[keys].power
+#    currQuantity = user_gpus[keys].quantity
+#    currGpuList = ["name: ", currName, "hash: ", currHash, 
+#        "power: ", currPower, "quantity: ", currQuantity]
+#    gpus.append(currGpuList)
+#for gpu in gpus:
+#    print(gpu)
 
 
 
