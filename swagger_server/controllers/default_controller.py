@@ -16,11 +16,11 @@ newUser = User(all_gpus)
 gpuToUpdate = ""
 
 def get_eth_price(price=None): 
-    currPrice = Price(float(User.grab_eth_price(newUser)))
+    currPrice = Price(float(User.efficient_get_eth(newUser)))
     return currPrice
 
 def get_profitability(profitability=None): 
-    currProfitability = Profitability(float(User.grab_profitability(newUser)))
+    currProfitability = Profitability(float(User.efficient_get_mhs(newUser)))
     return currProfitability
 
 def get_user(user=None):  
