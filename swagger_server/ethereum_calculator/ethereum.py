@@ -13,8 +13,8 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Selenium Driver is different for the OS you are using, choose one of the following
 #PATH = "dependencies/windowschromedriver"
-PATH = "dependencies/m1chromedriver"
-#PATH = "dependencies/macchromedriver"
+# PATH = "dependencies/m1chromedriver"
+PATH = "dependencies/macchromedriver"
 
 # A class that defines the attributes of a GPU
 class GPU:
@@ -181,9 +181,12 @@ class User:
         
         if name in self.user_gpu.keys():
             self.user_gpu[name].quantity = self.user_gpu[name].quantity - quantity
+            self.total_hashrate = self.total_hashrate - (float(self.user_gpu[name].hash) * quantity)
             if self.user_gpu[name].quantity <= 0:
                 self.user_gpu[name].quantity = 0
                 self.user_gpu.pop(name)
+            if self.total_hashrate <= 0:
+                self.total_hashrate = 0
                 
 
     # Calculates the return on total_cost
