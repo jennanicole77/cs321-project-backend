@@ -154,19 +154,17 @@ class User:
     
     # Loads a saved user session
     def load(self, file):
-        f = open("sessions\\" + file)
-        data = json.load(f)
+        data = json.loads(file)
 
         all_gpus = dict()
-        user_gpu = dict()
+        self.user_gpu = dict()
         load_gpus(all_gpus)
 
-        for keys in data["user gpus"]:
-            for x in range(0, data["user gpus"][keys]["quantity"]):
-                self.add_gpus(user_gpu, all_gpus, data["user gpus"][keys]["name"])
+        for i in range(len(data["user_gpu"])):
+            self.add_gpus(data["user_gpu"][i][1], data["user_gpu"][i][7])
 
         
-        self.user_constructor(data["ethereum"], data["power_rate"], user_gpu, data["tax_rate"], data["total_cost"])
+        self.user_constructor(data["ethereum"], data["power_rate"], self.user_gpu, data["tax_rate"], data["total_cost"])
     
     # This function adds a gpu to the user dictionary
     def add_gpus(self, name, quantity):

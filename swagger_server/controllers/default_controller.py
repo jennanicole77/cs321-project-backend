@@ -1,6 +1,7 @@
 import connexion
 import six
 import requests
+import base64
 import logging
 import json
 from swagger_server.models.price import Price 
@@ -80,6 +81,10 @@ def get_save(object=None):
         "user_gpu" : gpus
     }
     return json.dumps(response)
+
+def put_load(load=input):
+    User.load(newUser, base64.b64decode(load))
+    return json.dumps(User.get_ethereum_mined(newUser))
 
 def put_amount_mined(mined=input):  
     User.set_ethereum_mined(newUser, mined)

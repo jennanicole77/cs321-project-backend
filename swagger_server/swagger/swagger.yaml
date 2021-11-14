@@ -297,6 +297,26 @@ paths:
               schema:
                 x-content-type: application/json
       x-openapi-router-controller: swagger_server.controllers.default_controller
+  /load:
+    put:
+      operationId: put_load
+      parameters:
+      - name: load
+        in: query
+        description: to be loaded
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                x-content-type: application/json
+      x-openapi-router-controller: swagger_server.controllers.default_controller
 components:
   schemas:
     Price:

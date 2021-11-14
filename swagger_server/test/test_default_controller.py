@@ -199,6 +199,20 @@ class TestDefaultController(BaseTestCase):
         self.assert200(response,
                        'Response body is : ' + response.data.decode('utf-8'))
 
+    def test_put_load(self):
+        """Test case for put_load
+
+        
+        """
+        query_string = [('load', 1.2)]
+        response = self.client.open(
+            '/rig',
+            method='PUT',
+            query_string=query_string)
+        self.assert200(response,
+                       'Response body is : ' + response.data.decode('utf-8'))
+
+
     def test_put_tax(self):
         """Test case for put_tax
 
