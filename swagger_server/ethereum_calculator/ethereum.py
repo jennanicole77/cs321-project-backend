@@ -13,9 +13,9 @@ warnings.filterwarnings("ignore", category=DeprecationWarning)
 
 # Selenium Driver is different for the OS you are using, choose one of the following
 #PATH = "dependencies/windowschromedriver"
-# PATH = "dependencies/m1chromedriver"
+PATH = "dependencies/m1chromedriver"
 # PATH = "dependencies/macchromedriver"
-PATH = "dependencies/linuxchromedriver"
+# PATH = "dependencies/linuxchromedriver"
 
 # A class that defines the attributes of a GPU
 class GPU:
